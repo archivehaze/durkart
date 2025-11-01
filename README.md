@@ -1,0 +1,1 @@
+### durkart solution for G-Research Crystal Ball and MLH ElevenLabs challenge
