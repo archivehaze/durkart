@@ -1,0 +1,224 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Crystal Kart</title>
+
+    <!-- NES.css -->
+    <link
+      href="https://unpkg.com/nes.css@latest/css/nes.min.css"
+      rel="stylesheet"
+    />
+
+    <link rel="stylesheet" href="../static/styles.css" />
+  </head>
+
+  <body>
+    <div id="app" class="nes-container is-rounded is-dark">
+      <div id="selection-grid">
+        <button class="nes-btn is-primary" data-menu="driver">
+          Driver: Mario
+        </button>
+        <button class="nes-btn is-success" data-menu="kart">
+          Kart: Standard
+        </button>
+        <button class="nes-btn is-warning" data-menu="glider">
+          Glider: Super
+        </button>
+        <button class="nes-btn is-error" data-menu="tyre">Tyre: Slick</button>
+        <button class="nes-btn is-secondary" data-menu="map">
+          Map: Rainbow Road
+        </button>
+      </div>
+
+      <img
+        src="../static/assets/mario-shut.png"
+        alt="Mario and Crystal Ball"
+        id="sprite"
+      />
+      <button class="nes-btn is-warning" id="predict-btn">
+        Predict My Fate
+      </button>
+    </div>
+
+    <dialog class="nes-dialog" id="driver-dialog">
+      <form method="dialog">
+        <p class="title">Select Driver</p>
+        <div class="dialog-menu">
+          <button class="driver-option" data-value="Mario">
+            <img src="../static/assets/drivers/mario.jpg" alt="Mario" />
+            <span>Mario</span>
+          </button>
+          <button class="driver-option" data-value="Luigi">
+            <img src="../static/assets/drivers/luigi.png" alt="Luigi" />
+            <span>Luigi</span>
+          </button>
+          <button class="driver-option" data-value="Peach">
+            <img src="../static/assets/drivers/peach.jpeg" alt="Peach" />
+            <span>Peach</span>
+          </button>
+          <button class="driver-option" data-value="Daisy">
+            <img src="../static/assets/drivers/daisy.png" alt="Daisy" />
+            <span>Daisy</span>
+          </button>
+          <button class="driver-option" data-value="Yoshi">
+            <img src="../static/assets/drivers/yoshi.png" alt="Yoshi" />
+            <span>Yoshi</span>
+          </button>
+          <button class="driver-option" data-value="Toad">
+            <img src="../static/assets/drivers/toad.png" alt="Toad" />
+            <span>Toad</span>
+          </button>
+          <button class="driver-option" data-value="Toadette">
+            <img src="../static/assets/drivers/toadette.png" alt="Toadette" />
+            <span>Toadette</span>
+          </button>
+          <button class="driver-option" data-value="Koopa Troopa">
+            <img
+              src="../static/assets/drivers/koopa-troopa.png"
+              alt="Koopa Troopa"
+            />
+            <span>Koopa Troopa</span>
+          </button>
+          <button class="driver-option" data-value="Bowser">
+            <img src="../static/assets/drivers/bowser.jpg" alt="Bowser" />
+            <span>Bowser</span>
+          </button>
+          <button class="driver-option" data-value="Donkey Kong">
+            <img
+              src="../static/assets/drivers/donkey-kong.png"
+              alt="Donkey Kong"
+            />
+            <span>Donkey Kong</span>
+          </button>
+          <button class="driver-option" data-value="Baby Mario">
+            <img
+              src="../static/assets/drivers/baby-mario.png"
+              alt="Baby Mario"
+            />
+            <span>Baby Mario</span>
+          </button>
+          <button class="driver-option" data-value="Baby Luigi">
+            <img
+              src="../static/assets/drivers/baby-luigi.png"
+              alt="Baby Luigi"
+            />
+            <span>Baby Luigi</span>
+          </button>
+          <button class="driver-option" data-value="Baby Peach">
+            <img
+              src="../static/assets/drivers/baby-peach.png"
+              alt="Baby Peach"
+            />
+            <span>Baby Peach</span>
+          </button>
+          <button class="driver-option" data-value="Lakitu">
+            <img src="../static/assets/drivers/lakitu.png" alt="Lakitu" />
+            <span>Lakitu</span>
+          </button>
+          <button class="driver-option" data-value="Metal Mario">
+            <img
+              src="../static/assets/drivers/metal-mario.png"
+              alt="Metal Mario"
+            />
+            <span>Metal Mario</span>
+          </button>
+          <button class="driver-option" data-value="Pink Gold Peach">
+            <img
+              src="../static/assets/drivers/pink-gold-peach.png"
+              alt="Pink Gold Peach"
+            />
+            <span>Pink Gold Peach</span>
+          </button>
+          <button class="driver-option" data-value="Rosalina">
+            <img src="../static/assets/drivers/rosalina.png" alt="Rosalina" />
+            <span>Rosalina</span>
+          </button>
+          <button class="driver-option" data-value="Shy Guy">
+            <img src="../static/assets/drivers/shy-guy.png" alt="Shy Guy" />
+            <span>Shy Guy</span>
+          </button>
+          <button class="driver-option" data-value="Waluigi">
+            <img src="../static/assets/drivers/waluigi.png" alt="Waluigi" />
+            <span>Waluigi</span>
+          </button>
+          <button class="driver-option" data-value="Wario">
+            <img src="../static/assets/drivers/wario.jpg" alt="Wario" />
+            <span>Wario</span>
+          </button>
+        </div>
+      </form>
+    </dialog>
+    <audio id="mario-audio"></audio>
+  </body>
+
+  <script>
+    // Open the correct dialog when a box is clicked
+    document.querySelectorAll("[data-menu]").forEach((btn) => {
+      btn.addEventListener("click", () => {
+        const menuType = btn.getAttribute("data-menu");
+        document.getElementById(`${menuType}-dialog`).showModal();
+      });
+    });
+
+    // Update selection when a dialog option is chosen
+    document.querySelectorAll("dialog").forEach((dialog) => {
+      dialog.querySelectorAll("button").forEach((option) => {
+        option.addEventListener("click", () => {
+          const type = dialog.id.replace("-dialog", "");
+          const newValue = option.textContent;
+          const button = document.querySelector(`[data-menu="${type}"]`);
+          button.textContent = `${
+            type.charAt(0).toUpperCase() + type.slice(1)
+          }: ${newValue}`;
+          dialog.close();
+        });
+      });
+    });
+
+    document.querySelector("#predict-btn").addEventListener("click", async () => {
+    const marioAudio = document.getElementById("mario-audio");
+    const sprite = document.getElementById("sprite");
+
+    // Set audio source and play
+    marioAudio.src = `/speak?t=${Date.now()}`;
+    await marioAudio.play();
+
+    // Create Web Audio API context
+    const audioCtx = new (window.AudioContext || window.webkitAudioContext)();
+    const source = audioCtx.createMediaElementSource(marioAudio);
+    const analyser = audioCtx.createAnalyser();
+    source.connect(analyser);
+    analyser.connect(audioCtx.destination);
+
+    analyser.fftSize = 256;
+    const bufferLength = analyser.frequencyBinCount;
+    const dataArray = new Uint8Array(bufferLength);
+
+    let smoothedVolume = 0;
+
+  function animate() {
+      analyser.getByteFrequencyData(dataArray);
+      
+      let sum = 0;
+      for (let i = 0; i < bufferLength; i++) sum += dataArray[i];
+      const avg = sum / bufferLength;
+
+      smoothedVolume = 0.7 * smoothedVolume + 0.3 * avg;
+
+      if (smoothedVolume > 70) {
+          sprite.src = "/static/assets/mario-talking.png"; // mouth open
+      } else {
+          sprite.src = "/static/assets/mario-shut.png";   // mouth closed
+      }
+
+      requestAnimationFrame(animate);
+
+  }
+
+
+    requestAnimationFrame(animate);
+});
+  </script>
+</html>
