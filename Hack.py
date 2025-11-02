@@ -314,13 +314,16 @@ def predict_time_for_builds_turns(
 def predict_time_for_single_build(build, *, use_ml_blend=True, alpha=0.15):
     if isinstance(build, (list, tuple)):
         if len(build) != 5:
-            raise ValueError("Expected [Driver, Body, Tire, Glider, Map].")
-        driver, body, tire, glider, map_name = build
+            raise ValueError("Expected [Driver, Kart, Glider, Tire, Map].")
+        
+        driver, body, glider, tire, map_name = build
+
     elif isinstance(build, dict):
-        driver  = build["Driver"]; body = build["Body"]; tire = build["Tire"]; glider = build["Glider"]
-        map_name = build["Map"]
-    else:
-        raise TypeError("build must be list/tuple of len 5 or dict with required keys")
+        driver  = build.get("Driver")
+        body    = build.get("Kart") or build.get("Body")
+        tire    = build.get("Tire")
+        glider  = build.get("Glider")
+        map_name = build.get("Map")
 
     single = pd.DataFrame([{"Driver": driver, "Body": body, "Tire": tire, "Glider": glider}])
 
@@ -365,7 +368,7 @@ def predict_time_for_single_build(build, *, use_ml_blend=True, alpha=0.15):
             )
     phrases = ["Mario", "Wahoo!", "Let's-a go!", "It's-a me", "Oh yeah!", "Boing!", "Here we go!"]
     
-    return f"{random.choice(phrases)},  {build["Driver"]} has a predicted time of {preds["predicted_time_calibrated"]} {random.choice(phrases)}"
+    return f"{random.choice(phrases)}, {driver} has a predicted time of {preds['predicted_time_calibrated'].iloc[0]:.2f} seconds {random.choice(phrases)}"
 
 
 def pick_single_winner_with_rules(preds, builds_df, track_df):

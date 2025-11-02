@@ -3,7 +3,7 @@ from config import get_api_keys
 from elevenlabs import ElevenLabs, stream
 from voice.mouth_logic import generate_mouth_states
 from voice.eleven_tts import generate_tts
-from Hack import mario_speech
+from Hack import predict_time_for_single_build
 
 
 from voice.eleven_tts import elevenlabs, VOICE_ID, MODEL_ID
@@ -24,7 +24,7 @@ client = ElevenLabs(api_key=API_KEY)
 @app.route('/speak', methods=['GET', 'POST'])
 def speak():   
     variables = request.json.get('variables', [])
-    text = mario_speech(variables)
+    text = predict_time_for_single_build(variables)
     audio_stream = elevenlabs.text_to_speech.stream(
         text=text,
         voice_id=VOICE_ID,

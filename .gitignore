@@ -1,1 +1,5 @@
 voice/.env
+__pycache__/config.cpython-310.pyc
+__pycache__/Hack.cpython-310.pyc
+voice/__pycache__/eleven_tts.cpython-310.pyc
+voice/__pycache__/mouth_logic.cpython-310.pyc
