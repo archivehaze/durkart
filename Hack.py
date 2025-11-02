@@ -311,6 +311,62 @@ def predict_time_for_builds_turns(
 
     return pd.concat(out, ignore_index=True)
 
+def predict_time_for_single_build(build, *, use_ml_blend=True, alpha=0.15):
+    if isinstance(build, (list, tuple)):
+        if len(build) != 5:
+            raise ValueError("Expected [Driver, Body, Tire, Glider, Map].")
+        driver, body, tire, glider, map_name = build
+    elif isinstance(build, dict):
+        driver  = build["Driver"]; body = build["Body"]; tire = build["Tire"]; glider = build["Glider"]
+        map_name = build["Map"]
+    else:
+        raise TypeError("build must be list/tuple of len 5 or dict with required keys")
+
+    single = pd.DataFrame([{"Driver": driver, "Body": body, "Tire": tire, "Glider": glider}])
+
+    single = (single
+        .merge(drivers_df, on="Driver", how="left")
+        .merge(bodies_df,  on="Body",   how="left")
+        .merge(gliders_df, on="Glider", how="left")
+        .merge(tires_df,   on="Tire",   how="left")
+    )
+
+    if single.isna().all(axis=1).any():
+        missing = [c for c in ["Driver","Body","Tire","Glider"] if single.filter(like=c).isna().values.any()]
+        raise ValueError(f"One or more part names didn’t match your datasets: {missing}")
+
+    for stat in base_stats:
+        cols = [f"drv_{stat}", f"body_{stat}", f"tire_{stat}", f"glider_{stat}"]
+        cols = [c for c in cols if c in single.columns]
+        single[f"TOTAL {stat}"] = single[cols].sum(axis=1, numeric_only=True)
+
+    tdf = track_df.loc[track_df["Map"] == map_name].copy()
+    if tdf.empty:
+        raise ValueError(f"Map '{map_name}' not found in track_df['Map'].")
+
+    preds = predict_time_for_builds_turns(single, tdf) 
+    if "calibration" in globals():
+        preds = preds.merge(calibration[["Map","scale"]], on="Map", how="left")
+        preds["scale"] = preds["scale"].fillna(1.0)
+    else:
+        preds["scale"] = 1.0
+    preds["predicted_time_calibrated"] = preds["predicted_time"] * preds["scale"]
+
+    if use_ml_blend and "wr_model" in globals() and wr_model is not None:
+        feats_row = track_df.loc[track_df["Map"] == map_name, FEATURES]
+        if not feats_row.empty:
+            ml_wr = float(wr_model.predict(feats_row.iloc[[0]])[0])
+            preds["predicted_time_calibrated"] = (
+                (1.0 - alpha) * preds["predicted_time_calibrated"] + alpha * ml_wr
+            )
+            wr_val = float(track_df.loc[track_df["Map"] == map_name, "WR"].iloc[0])
+            preds["predicted_time_calibrated"] = np.maximum(
+                preds["predicted_time_calibrated"], 0.98 * wr_val
+            )
+    phrases = ["Mario", "Wahoo!", "Let's-a go!", "It's-a me", "Oh yeah!", "Boing!", "Here we go!"]
+    
+    return f"{random.choice(phrases)},  {build["Driver"]} has a predicted time of {preds["predicted_time_calibrated"]} {random.choice(phrases)}"
+
 
 def pick_single_winner_with_rules(preds, builds_df, track_df):
     id_cols = ["Driver","Body","Tire","Glider"]
@@ -391,9 +447,7 @@ rr_winner = pick_single_winner_with_rules(
     builds, track_df
 )
 
-def mario_speech(rr_winner):
-    phrases = ["Mario", "Wahoo!", "Let's-a go!", "It's-a me", "Oh yeah!", "Boing!", "Here we go!"]
-    return f"{random.choice(phrases)},  {rr_winner['Driver']} has a predicted time of {rr_winner['predicted_time']} {random.choice(phrases)}"
+
 
 
 print(f"\n=== {TARGET_MAP} — Winner ===")
