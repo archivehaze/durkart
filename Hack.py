@@ -3,6 +3,7 @@ import re
 import numpy as np
 import pandas as pd
 import itertools
+import random
 import matplotlib.pyplot as plt
 import kagglehub
 from kagglehub import KaggleDatasetAdapter
@@ -377,15 +378,14 @@ rr_winner = pick_single_winner_with_rules(
     builds, track_df
 )
 
+def mario_speech(rr_winner):
+    phrases = ["Mario", "Wahoo!", "Let's-a go!", "It's-a me", "Oh yeah!", "Boing!", "Here we go!"]
+    return f"{random.choice(phrases)},  {rr_winner['Driver']} has a predicted time of {rr_winner['predicted_time']} {random.choice(phrases)}"
 
-print(f"\n=== {TARGET_MAP} — ML-calibrated winner ===")
-print(f"Driver: {rr_winner['Driver']}")
-print(f"Body:   {rr_winner['Body']}")
-print(f"Tire:   {rr_winner['Tire']}")
-print(f"Glider: {rr_winner['Glider']}")
-print(f"Pred (s): {rr_winner['predicted_time']:.2f}")
 
-print("\nTop 10 builds (calibrated):")
-print(rr_preds.sort_values("predicted_time_calibrated").head(10)[
-    ["Driver","Body","Tire","Glider","predicted_time_calibrated"]
-].to_string(index=False))
+#print(f"\n=== {TARGET_MAP} — Winner ===")
+#print(f"Driver: {rr_winner['Driver']}")
+#print(f"Body:   {rr_winner['Body']}")
+#print(f"Tire:   {rr_winner['Tire']}")
+#print(f"Glider: {rr_winner['Glider']}")
+#print(f"Pred (s): {rr_winner['predicted_time']:.2f}")
