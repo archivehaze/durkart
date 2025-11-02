@@ -1,5 +1,5 @@
 body {
-    background-color: #212529;
+    background-color: #333;
     display: flex;
     justify-content: center;
     align-items: center;
@@ -9,6 +9,9 @@ body {
   
   #app {
     display: flex;
+    width:900px;
+    height:550px;
+    background-color: #fff;
     flex-direction: column;
     align-items: center;
     padding: 2rem;
@@ -54,3 +57,190 @@ body {
     display: block;
     margin: 0 auto 0.3rem auto;
   }
+  
+  /* Each cup section has a title and a row of maps */
+  .cup-section h3 {
+    margin: 0;
+    text-align: center;
+    color: #fff;
+    font-family: 'Press Start 2P', cursive;
+    font-size: 1.5rem;
+  }
+  
+  /* Map buttons are now arranged in a 2:1 rectangle grid */
+  .map-row {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(200px, auto));
+    gap: 1rem;
+    justify-content: center;
+    align-items: start;
+  }
+  
+  /* Rectangular buttons */
+  .map-dialog .dialog-menu{
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    width: 200px;
+    height: 100px;
+    border: 2px solid #fff;
+    border-radius: 8px;
+    background-color: #333;
+    color: #fff;
+    text-align: center;
+    font-size: 0.9rem;
+    padding: 0.5rem;
+    box-sizing: border-box;
+    cursor: pointer;
+    transition: transform 0.2s, filter 0.2s;
+    aspect-ratio: auto !important;
+  }
+  
+  /* Map image fills top half */
+  .map-option img {
+    width: 100%;
+    height: 50%;
+    max-height: 50px;
+    object-fit: cover;
+    margin-bottom: 0.3rem;
+  }
+  
+  /* Hover effect */
+  .map-option:hover {
+    filter: brightness(1.3);
+    transform: scale(1.05);
+  }
+
+  /* Adjust the styling of tire options to have a 1.5:1 aspect ratio and be centered */
+  #tyre-dialog .dialog-menu {
+    display: flex;
+    flex-direction: column;
+    gap: 1.5rem;
+    align-items: center;
+  }
+
+  #tyre-dialog .row {
+    display: grid;
+    grid-template-columns: repeat(7, 1fr);
+    gap: 1rem;
+    justify-items: center;
+  }
+
+  #tyre-dialog .tires-option {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    width: 100%;
+    aspect-ratio: 1.25 / 1; /* Set the aspect ratio to 1.5:1 */
+    padding: 0.25rem;
+    border: 2px solid #fff;
+    border-radius: 8px;
+    background-color: transparent; /* Make buttons transparent */
+    border: none; /* Remove border */
+    box-shadow: none; /* Remove any shadow */
+    color: #fff;
+    text-align: center;
+    font-size: 0.9rem;
+  }
+
+  #tyre-dialog .tires-option img {
+    width: 100%;
+    max-width: 120px; /* Adjusted max width for better visibility */
+    height: auto;
+    margin-bottom: 0.5rem;
+  }
+
+  .title{
+    text-align: center;
+    color: #fff;
+    font-family: 'Consolas';
+    font-size: 1.5rem;
+    margin-bottom: 1rem;
+  }
+  /* Adjust dialog background color and make buttons transparent around images */
+  #tyre-dialog {
+    background-color: #333; /* Set dialog background to the previous button color */
+    color: #fff; /* Ensure text is visible on dark background */
+  }
+
+  #glider-dialog {
+    background-color: #333; /* Set dialog background to the previous button color */
+    color: #333; /* Ensure text is visible on dark background */
+  }
+
+  #glider-dialog {
+    border: 2px solid #fff;
+    border-radius: 8px;
+  }
+
+  #glider-dialog .dialog-menu {
+    display: flex;
+    flex-direction: column;
+    gap: 1.5rem;
+    align-items: center;
+  }
+
+  #kart-dialog {
+    background-color: #333;;
+  }
+
+  /* Adjust the styling of kart options to match the tires, with a transparent background and centered alignment */
+  #kart-dialog .dialog-menu {
+    display: flex;
+    flex-direction: column;
+    gap: 1.5rem;
+    align-items: center;
+  }
+
+  #kart-dialog .row {
+    display: grid;
+    grid-template-columns: repeat(8, 1fr);
+    gap: 1rem;
+    justify-items: center;
+  }
+
+  #kart-dialog{
+    border: 2px solid #fff;
+    border-radius: 8px;
+  }
+
+  #kart-dialog .kart-option {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    width: 100%;
+    aspect-ratio: 1 / 1; /* Set the aspect ratio to 1.5:1 */
+    padding: 0.1rem;
+    background-color: transparent; /* Make buttons transparent */
+    box-shadow: none; /* Remove any shadow */
+    text-align: center;
+    font-size: 0.9rem;
+  }
+
+  #kart-dialog .kart-option img {
+    width: 100%;
+    max-width: 100px; /* Adjusted max width for better visibility */
+    height: auto;
+    margin-bottom: 0.5rem;
+  }
+
+  #driver-dialog {
+    background-color: #333; /* Set dialog background to the previous button color */
+    color: #333; /* Ensure text is visible on dark background */
+  }
+
+  #driver-dialog{
+    border: 2px solid #fff;
+    border-radius: 8px;
+  }
+
+  #driver-dialog .dialog-menu {
+    display: flex;
+    flex-direction: column;
+    gap: 1.5rem;
+    align-items: center;
+  }
+
