@@ -1,157 +1,867 @@
 <!DOCTYPE html>
 <html lang="en">
-  <head>
-    <meta charset="UTF-8" />
-    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>Crystal Kart</title>
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Crystal Kart</title>
 
-    <!-- NES.css -->
-    <link
-      href="https://unpkg.com/nes.css@latest/css/nes.min.css"
-      rel="stylesheet"
-    />
+  <!-- NES.css -->
+  <link href="https://unpkg.com/nes.css@latest/css/nes.min.css" rel="stylesheet" />
 
-    <link rel="stylesheet" href="../static/styles.css" />
-  </head>
+  <link rel="stylesheet" href="styles.css" />
+</head>
 
-  <body>
-    <div id="app" class="nes-container is-rounded is-dark">
-      <div id="selection-grid">
-        <button class="nes-btn is-primary" data-menu="driver">
-          Driver: Mario
-        </button>
-        <button class="nes-btn is-success" data-menu="kart">
-          Kart: Standard
-        </button>
-        <button class="nes-btn is-warning" data-menu="glider">
-          Glider: Super
-        </button>
+<body>
+  <div id="app" class="nes-container is-rounded is-dark">
+    <div id="selection-grid">
+        <button class="nes-btn is-primary" data-menu="driver">Driver: Mario</button>
+        <button class="nes-btn is-success" data-menu="kart">Kart: Standard</button>
+        <button class="nes-btn is-warning" data-menu="glider">Glider: Super</button>
         <button class="nes-btn is-error" data-menu="tyre">Tyre: Slick</button>
-        <button class="nes-btn is-secondary" data-menu="map">
-          Map: Rainbow Road
-        </button>
-      </div>
-
-      <img
-        src="../static/assets/mario-shut.png"
-        alt="Mario and Crystal Ball"
-        id="sprite"
-      />
-      <button class="nes-btn is-warning" id="predict-btn">
-        Predict My Fate
-      </button>
+        <button class="nes-btn is-secondary" data-menu="map">Map: Rainbow Road</button>
     </div>
 
-    <dialog class="nes-dialog" id="driver-dialog">
-      <form method="dialog">
-        <p class="title">Select Driver</p>
-        <div class="dialog-menu">
-          <button class="driver-option" data-value="Mario">
-            <img src="../static/assets/drivers/mario.jpg" alt="Mario" />
-            <span>Mario</span>
-          </button>
-          <button class="driver-option" data-value="Luigi">
-            <img src="../static/assets/drivers/luigi.png" alt="Luigi" />
-            <span>Luigi</span>
-          </button>
-          <button class="driver-option" data-value="Peach">
-            <img src="../static/assets/drivers/peach.jpeg" alt="Peach" />
-            <span>Peach</span>
-          </button>
-          <button class="driver-option" data-value="Daisy">
-            <img src="../static/assets/drivers/daisy.png" alt="Daisy" />
-            <span>Daisy</span>
-          </button>
-          <button class="driver-option" data-value="Yoshi">
-            <img src="../static/assets/drivers/yoshi.png" alt="Yoshi" />
-            <span>Yoshi</span>
-          </button>
-          <button class="driver-option" data-value="Toad">
-            <img src="../static/assets/drivers/toad.png" alt="Toad" />
-            <span>Toad</span>
-          </button>
-          <button class="driver-option" data-value="Toadette">
-            <img src="../static/assets/drivers/toadette.png" alt="Toadette" />
-            <span>Toadette</span>
-          </button>
-          <button class="driver-option" data-value="Koopa Troopa">
-            <img
-              src="../static/assets/drivers/koopa-troopa.png"
-              alt="Koopa Troopa"
-            />
-            <span>Koopa Troopa</span>
-          </button>
-          <button class="driver-option" data-value="Bowser">
-            <img src="../static/assets/drivers/bowser.jpg" alt="Bowser" />
-            <span>Bowser</span>
-          </button>
-          <button class="driver-option" data-value="Donkey Kong">
-            <img
-              src="../static/assets/drivers/donkey-kong.png"
-              alt="Donkey Kong"
-            />
-            <span>Donkey Kong</span>
-          </button>
-          <button class="driver-option" data-value="Baby Mario">
-            <img
-              src="../static/assets/drivers/baby-mario.png"
-              alt="Baby Mario"
-            />
-            <span>Baby Mario</span>
+    <img src="../static/assets/mario-shut.png" alt="Mario and Crystal Ball" id="sprite" />
+    <button class="nes-btn is-warning" id="predict-btn">Predict My Fate</button>
+  </div>
+
+  <dialog class="nes-dialog" id="driver-dialog">
+    <form method="dialog">
+      <p class="title">Select Driver</p>
+      <div class="dialog-menu">
+        <div class="row">
+          <button class="driver-option" data-value="Baby Daisy">
+              <img src="../static/assets/drivers/baby-daisy.png" alt="Baby Daisy">
+              <span>Baby Daisy</span>
           </button>
           <button class="driver-option" data-value="Baby Luigi">
-            <img
-              src="../static/assets/drivers/baby-luigi.png"
-              alt="Baby Luigi"
-            />
-            <span>Baby Luigi</span>
+              <img src="../static/assets/drivers/baby-luigi.png" alt="Baby Luigi">
+              <span>Baby Luigi</span>
+          </button>
+          <button class="driver-option" data-value="Baby Mario">
+              <img src="../static/assets/drivers/baby-mario.png" alt="Baby Mario">
+              <span>Baby Mario</span>
           </button>
           <button class="driver-option" data-value="Baby Peach">
-            <img
-              src="../static/assets/drivers/baby-peach.png"
-              alt="Baby Peach"
-            />
-            <span>Baby Peach</span>
+              <img src="../static/assets/drivers/baby-peach.png" alt="Baby Peach">
+              <span>Baby Peach</span>
           </button>
-          <button class="driver-option" data-value="Lakitu">
-            <img src="../static/assets/drivers/lakitu.png" alt="Lakitu" />
-            <span>Lakitu</span>
+          <button class="driver-option" data-value="Baby Rosalina">
+              <img src="../static/assets/drivers/baby-rosalina.png" alt="Baby Rosalina">
+              <span>Baby Rosalina</span>
           </button>
-          <button class="driver-option" data-value="Metal Mario">
-            <img
-              src="../static/assets/drivers/metal-mario.png"
-              alt="Metal Mario"
-            />
-            <span>Metal Mario</span>
+          <button class="driver-option" data-value="Bowser">
+              <img src="../static/assets/drivers/bowser.png" alt="Bowser">
+              <span>Bowser</span>
           </button>
-          <button class="driver-option" data-value="Pink Gold Peach">
-            <img
-              src="../static/assets/drivers/pink-gold-peach.png"
-              alt="Pink Gold Peach"
-            />
-            <span>Pink Gold Peach</span>
+          <button class="driver-option" data-value="Bowser Jr.">
+              <img src="../static/assets/drivers/bowser-jr.png" alt="Bowser Jr.">
+              <span>Bowser Jr.</span>
           </button>
-          <button class="driver-option" data-value="Rosalina">
-            <img src="../static/assets/drivers/rosalina.png" alt="Rosalina" />
-            <span>Rosalina</span>
+          <button class="driver-option" data-value="Cat Peach">
+              <img src="../static/assets/drivers/cat-peach.png" alt="Cat Peach">
+              <span>Cat Peach</span>
           </button>
-          <button class="driver-option" data-value="Shy Guy">
-            <img src="../static/assets/drivers/shy-guy.png" alt="Shy Guy" />
-            <span>Shy Guy</span>
+          <button class="driver-option" data-value="Daisy">
+              <img src="../static/assets/drivers/daisy.png" alt="Daisy">
+              <span>Daisy</span>
           </button>
-          <button class="driver-option" data-value="Waluigi">
-            <img src="../static/assets/drivers/waluigi.png" alt="Waluigi" />
-            <span>Waluigi</span>
+          <button class="driver-option" data-value="Donkey Kong">
+              <img src="../static/assets/drivers/donkey-kong.png" alt="Donkey Kong">
+              <span>Donkey Kong</span>
           </button>
-          <button class="driver-option" data-value="Wario">
-            <img src="../static/assets/drivers/wario.jpg" alt="Wario" />
-            <span>Wario</span>
+          <button class="driver-option" data-value="Dry Bones">
+              <img src="../static/assets/drivers/dry-bones.png" alt="Dry Bones">
+              <span>Dry Bones</span>
           </button>
         </div>
-      </form>
-    </dialog>
-    <audio id="mario-audio"></audio>
-  </body>
+        <div class="row">
+          <button class="driver-option" data-value="Dry Bowser">
+              <img src="../static/assets/drivers/dry-bowser.png" alt="Dry Bowser">
+              <span>Dry Bowser</span>
+          </button>
+          <button class="driver-option" data-value="Gold Mario">
+              <img src="../static/assets/drivers/gold-mario.png" alt="Gold Mario">
+              <span>Gold Mario</span>
+          </button>
+          <button class="driver-option" data-value="Iggy">
+              <img src="../static/assets/drivers/iggy.png" alt="Iggy">
+              <span>Iggy</span>
+          </button>
+          <button class="driver-option" data-value="Inkling Boy">
+              <img src="../static/assets/drivers/inkling-boy.png" alt="Inkling Boy">
+              <span>Inkling Boy</span>
+          </button>
+          <button class="driver-option" data-value="Inkling Girl">
+              <img src="../static/assets/drivers/inkling-girl.png" alt="Inkling Girl">
+              <span>Inkling Girl</span>
+          </button>
+          <button class="driver-option" data-value="Isabelle">
+              <img src="../static/assets/drivers/isabelle.png" alt="Isabelle">
+              <span>Isabelle</span>
+          </button>
+          <button class="driver-option" data-value="King Boo">
+              <img src="../static/assets/drivers/king-boo.png" alt="King Boo">
+              <span>King Boo</span>
+          </button>
+          <button class="driver-option" data-value="Koopa Troopa">
+              <img src="../static/assets/drivers/koopa-troopa.png" alt="Koopa Troopa">
+              <span>Koopa Troopa</span>
+          </button>
+          <button class="driver-option" data-value="Lakitu">
+              <img src="../static/assets/drivers/lakitu.png" alt="Lakitu">
+              <span>Lakitu</span>
+          </button>
+          <button class="driver-option" data-value="Larry">
+              <img src="../static/assets/drivers/larry.png" alt="Larry">
+              <span>Larry</span>
+          </button>
+          <button class="driver-option" data-value="Lemmy">
+              <img src="../static/assets/drivers/lemmy.png" alt="Lemmy">
+              <span>Lemmy</span>
+          </button>
+        </div>
+        <div class="row">
+          <button class="driver-option" data-value="Link">
+              <img src="../static/assets/drivers/link.png" alt="Link">
+              <span>Link</span>
+          </button>
+          <button class="driver-option" data-value="Ludwig">
+              <img src="../static/assets/drivers/ludwig.png" alt="Ludwig">
+              <span>Ludwig</span>
+          </button>
+          <button class="driver-option" data-value="Luigi">
+              <img src="../static/assets/drivers/luigi.png" alt="Luigi">
+              <span>Luigi</span>
+          </button>
+          <button class="driver-option" data-value="Mario">
+              <img src="../static/assets/drivers/mario.png" alt="Mario">
+              <span>Mario</span>
+          </button>
+          <button class="driver-option" data-value="Metal Mario">
+              <img src="../static/assets/drivers/metal-mario.png" alt="Metal Mario">
+              <span>Metal Mario</span>
+          </button>
+          <button class="driver-option" data-value="Mii">
+              <img src="../static/assets/drivers/mii.png" alt="Mii">
+              <span>Mii</span>
+          </button>
+          <button class="driver-option" data-value="Morton">
+              <img src="../static/assets/drivers/morton.png" alt="Morton">
+              <span>Morton</span>
+          </button>
+          <button class="driver-option" data-value="Peach">
+              <img src="../static/assets/drivers/peach.png" alt="Peach">
+              <span>Peach</span>
+          </button>
+          <button class="driver-option" data-value="Pink Gold Peach">
+              <img src="../static/assets/drivers/pink-gold-peach.png" alt="Pink Gold Peach">
+              <span>Pink Gold Peach</span>
+          </button>
+          <button class="driver-option" data-value="Rosalina">
+              <img src="../static/assets/drivers/rosalina.png" alt="Rosalina">
+              <span>Rosalina</span>
+          </button>
+          <button class="driver-option" data-value="Roy">
+              <img src="../static/assets/drivers/roy.png" alt="Roy">
+              <span>Roy</span>
+          </button>
+        </div>
+        <div class="row">
+          <button class="driver-option" data-value="Shy Guy">
+              <img src="../static/assets/drivers/shy-guy.png" alt="Shy Guy">
+              <span>Shy Guy</span>
+          </button>
+          <button class="driver-option" data-value="Tanooki Mario">
+              <img src="../static/assets/drivers/tanooki-mario.png" alt="Tanooki Mario">
+              <span>Tanooki Mario</span>
+          </button>
+          <button class="driver-option" data-value="Toad">
+              <img src="../static/assets/drivers/toad.png" alt="Toad">
+              <span>Toad</span>
+          </button>
+          <button class="driver-option" data-value="Toadette">
+              <img src="../static/assets/drivers/toadette.png" alt="Toadette">
+              <span>Toadette</span>
+          </button>
+          <button class="driver-option" data-value="Villager">
+              <img src="../static/assets/drivers/villager.png" alt="Villager">
+              <span>Villager</span>
+          </button>
+          <button class="driver-option" data-value="Villager Female">
+              <img src="../static/assets/drivers/villager-female.png" alt="Villager Female">
+              <span>Villager Female</span>
+          </button>
+          <button class="driver-option" data-value="Waluigi">
+              <img src="../static/assets/drivers/waluigi.png" alt="Waluigi">
+              <span>Waluigi</span>
+          </button>
+          <button class="driver-option" data-value="Wario">
+              <img src="../static/assets/drivers/wario.png" alt="Wario">
+              <span>Wario</span>
+          </button>
+          <button class="driver-option" data-value="Wendy">
+              <img src="../static/assets/drivers/wendy.png" alt="Wendy">
+              <span>Wendy</span>
+          </button>
+          <button class="driver-option" data-value="Yoshi">
+              <img src="../static/assets/drivers/yoshi.png" alt="Yoshi">
+              <span>Yoshi</span>
+          </button>
+        </div>
+      </div>
+      <menu class="dialog-menu-footer" style="text-align:center;margin-top:1rem;">
+        <button class="nes-btn">Close</button>
+      </menu>
+    </form>
+  </dialog>
+
+  <dialog class="nes-dialog" id="tyre-dialog">
+    <form method="dialog">
+      <p class="title">Select Tires</p>
+      <div class="dialog-menu">
+        <div class="row">
+          <button class="tires-option" data-value="Azure Roller">
+              <img src="../static/assets/tires/azure-roller.png" alt="Azure Roller">
+              <span>Azure Roller</span>
+          </button>
+          <button class="tires-option" data-value="Blue Standard">
+              <img src="../static/assets/tires/blue-standard.png" alt="Blue Standard">
+              <span>Blue Standard</span>
+          </button>
+          <button class="tires-option" data-value="Button">
+              <img src="../static/assets/tires/button.png" alt="Button">
+              <span>Button</span>
+          </button>
+          <button class="tires-option" data-value="Crimson Slim">
+              <img src="../static/assets/tires/crimson-slim.png" alt="Crimson Slim">
+              <span>Crimson Slim</span>
+          </button>
+          <button class="tires-option" data-value="Cushion">
+              <img src="../static/assets/tires/cushion.png" alt="Cushion">
+              <span>Cushion</span>
+          </button>
+          <button class="tires-option" data-value="Cyber Slick">
+              <img src="../static/assets/tires/cyber-slick.png" alt="Cyber Slick">
+              <span>Cyber Slick</span>
+          </button>
+          <button class="tires-option" data-value="GLA Tires">
+              <img src="../static/assets/tires/gla-tires.png" alt="GLA Tires">
+              <span>GLA Tires</span>
+          </button>
+        </div>
+        <div class="row">
+          <button class="tires-option" data-value="Gold Tires">
+              <img src="../static/assets/tires/gold-tires.png" alt="Gold Tires">
+              <span>Gold Tires</span>
+          </button>
+          <button class="tires-option" data-value="Hot Monster">
+              <img src="../static/assets/tires/hot-monster.png" alt="Hot Monster">
+              <span>Hot Monster</span>
+          </button>
+          <button class="tires-option" data-value="Lead Tires">
+              <img src="../static/assets/tires/lead-tires.png" alt="Lead Tires">
+              <span>Lead Tires</span>
+          </button>
+          <button class="tires-option" data-value="Metal">
+              <img src="../static/assets/tires/metal.png" alt="Metal">
+              <span>Metal</span>
+          </button>
+          <button class="tires-option" data-value="Monster">
+              <img src="../static/assets/tires/monster.png" alt="Monster">
+              <span>Monster</span>
+          </button>
+          <button class="tires-option" data-value="Off Road">
+              <img src="../static/assets/tires/off-raod.png" alt="Off Road">
+              <span>Off Road</span>
+          </button>
+          <button class="tires-option" data-value="Retro Off Road">
+              <img src="../static/assets/tires/retro-off-road.png" alt="Retro Off Road">
+              <span>Retro Off Road</span>
+          </button>
+        </div>
+        <div class="row">
+          <button class="tires-option" data-value="Roller">
+              <img src="../static/assets/tires/roller.png" alt="Roller">
+              <span>Roller</span>
+          </button>
+          <button class="tires-option" data-value="Slick">
+              <img src="../static/assets/tires/slick.png" alt="Slick">
+              <span>Slick</span>
+          </button>
+          <button class="tires-option" data-value="Slim">
+              <img src="../static/assets/tires/slim.png" alt="Slim">
+              <span>Slim</span>
+          </button>
+          <button class="tires-option" data-value="Sponge">
+              <img src="../static/assets/tires/sponge.png" alt="Sponge">
+              <span>Sponge</span>
+          </button>
+          <button class="tires-option" data-value="Standard">
+              <img src="../static/assets/tires/standard.png" alt="Standard">
+              <span>Standard</span>
+          </button>
+          <button class="tires-option" data-value="Triforce Tires">
+              <img src="../static/assets/tires/triforce-tires.png" alt="Triforce Tires">
+              <span>Triforce Tires</span>
+          </button>
+          <button class="tires-option" data-value="Wood">
+              <img src="../static/assets/tires/wood.png" alt="Wood">
+              <span>Wood</span>
+          </button>
+        </div>
+      </div>
+      <menu class="dialog-menu-footer" style="text-align:center;margin-top:1rem;">
+        <button class="nes-btn">Close</button>
+      </menu>
+    </form>
+  </dialog>
+
+  <dialog class="nes-dialog" id="glider-dialog">
+    <form method="dialog">
+      <p class="title">Select Glider</p>
+      <div class="dialog-menu">
+        <div class="row">
+          <button class="gliders-option" data-value="Bowser Kite">
+              <img src="../static/assets/gliders/bowser-kite.png" alt="Bowser Kite">
+              <span>Bowser Kite</span>
+          </button>
+          <button class="gliders-option" data-value="Cloud Glider">
+              <img src="../static/assets/gliders/cloud-glider.png" alt="Cloud Glider">
+              <span>Cloud Glider</span>
+          </button>
+          <button class="gliders-option" data-value="Flower Glider">
+              <img src="../static/assets/gliders/flower-glider.png" alt="Flower Glider">
+              <span>Flower Glider</span>
+          </button>
+          <button class="gliders-option" data-value="Gold Glider">
+              <img src="../static/assets/gliders/gold-glider.png" alt="Gold Glider">
+              <span>Gold Glider</span>
+          </button>
+          <button class="gliders-option" data-value="Hylian Kite">
+              <img src="../static/assets/gliders/hylian-kite.png" alt="Hylian Kite">
+              <span>Hylian Kite</span>
+          </button>
+          <button class="gliders-option" data-value="MKTV Parafoil">
+              <img src="../static/assets/gliders/mktv-parafoil.png" alt="MKTV Parafoil">
+              <span>MKTV Parafoil</span>
+          </button>
+          <button class="gliders-option" data-value="Paper Glider">
+              <img src="../static/assets/gliders/paper-glider.png" alt="Paper Glider">
+              <span>Paper Glider</span>
+          </button>
+        </div>
+        <div class="row">
+          <button class="gliders-option" data-value="Parachute">
+              <img src="../static/assets/gliders/parachute.png" alt="Parachute">
+              <span>Parachute</span>
+          </button>
+          <button class="gliders-option" data-value="Parafoil">
+              <img src="../static/assets/gliders/parafoil.png" alt="Parafoil">
+              <span>Parafoil</span>
+          </button>
+          <button class="gliders-option" data-value="Peach Parasol">
+              <img src="../static/assets/gliders/peach-parasol.png" alt="Peach Parasol">
+              <span>Peach Parasol</span>
+          </button>
+          <button class="gliders-option" data-value="Plane Glider">
+              <img src="../static/assets/gliders/plane-glider.png" alt="Plane Glider">
+              <span>Plane Glider</span>
+          </button>
+          <button class="gliders-option" data-value="Super Glider">
+              <img src="../static/assets/gliders/super-glider.png" alt="Super Glider">
+              <span>Super Glider</span>
+          </button>
+          <button class="gliders-option" data-value="Waddle Wing">
+              <img src="../static/assets/gliders/waddle-wing.png" alt="Waddle Wing">
+              <span>Waddle Wing</span>
+          </button>
+          <button class="gliders-option" data-value="Wario Wing">
+              <img src="../static/assets/gliders/wario-wing.png" alt="Wario Wing">
+              <span>Wario Wing</span>
+          </button>
+        </div>
+      </div>
+      <menu class="dialog-menu-footer" style="text-align:center;margin-top:1rem;">
+        <button class="nes-btn">Close</button>
+      </menu>
+    </form>
+  </dialog>
+
+  <dialog class="nes-dialog" id="kart-dialog">
+    <form method="dialog">
+      <p class="title">Select Kart</p>
+      <div class="dialog-menu">
+        <div class="row">
+          <button class="kart-option" data-value="300 SL Roadster">
+              <img src="../static/assets/vehicles/300-sl-roadster.png" alt="300 SL Roadster">
+              <span>300 SL Roadster</span>
+          </button>
+          <button class="kart-option" data-value="B Dasher">
+              <img src="../static/assets/vehicles/b-dasher.png" alt="B Dasher">
+              <span>B Dasher</span>
+          </button>
+          <button class="kart-option" data-value="Badwagon">
+              <img src="../static/assets/vehicles/badwagon.png" alt="Badwagon">
+              <span>Badwagon</span>
+          </button>
+          <button class="kart-option" data-value="Biddybuggy">
+              <img src="../static/assets/vehicles/biddybuggy.png" alt="Biddybuggy">
+              <span>Biddybuggy</span>
+          </button>
+          <button class="kart-option" data-value="Blue Falcon">
+              <img src="../static/assets/vehicles/blue-falcon.png" alt="Blue Falcon">
+              <span>Blue Falcon</span>
+          </button>
+          <button class="kart-option" data-value="Bone Rattler">
+              <img src="../static/assets/vehicles/bone-rattler.png" alt="Bone Rattler">
+              <span>Bone Rattler</span>
+          </button>
+          <button class="kart-option" data-value="Cat Cruiser">
+              <img src="../static/assets/vehicles/cat-cruiser.png" alt="Cat Cruiser">
+              <span>Cat Cruiser</span>
+          </button>
+          <button class="kart-option" data-value="Circuit Special">
+              <img src="../static/assets/vehicles/circuit-special.png" alt="Circuit Special">
+              <span>Circuit Special</span>
+          </button>
+        </div>
+        <div class="row">
+          <button class="kart-option" data-value="City Tripper">
+              <img src="../static/assets/vehicles/city-tripper.png" alt="City Tripper">
+              <span>City Tripper</span>
+          </button>
+          <button class="kart-option" data-value="Comet">
+              <img src="../static/assets/vehicles/comet.png" alt="Comet">
+              <span>Comet</span>
+          </button>
+          <button class="kart-option" data-value="Flame Rider">
+              <img src="../static/assets/vehicles/flame-rider.png" alt="Flame Rider">
+              <span>Flame Rider</span>
+          </button>
+          <button class="kart-option" data-value="GLA">
+              <img src="../static/assets/vehicles/gla.png" alt="GLA">
+              <span>GLA</span>
+          </button>
+          <button class="kart-option" data-value="Gold Standard">
+              <img src="../static/assets/vehicles/gold-standard.png" alt="Gold Standard">
+              <span>Gold Standard</span>
+          </button>
+          <button class="kart-option" data-value="Inkstriker">
+              <img src="../static/assets/vehicles/inkstriker.png" alt="Inkstriker">
+              <span>Inkstriker</span>
+          </button>
+          <button class="kart-option" data-value="Jet Bike">
+              <img src="../static/assets/vehicles/jet-bike.png" alt="Jet Bike">
+              <span>Jet Bike</span>
+          </button>
+          <button class="kart-option" data-value="Koopa Clown">
+              <img src="../static/assets/vehicles/koopa-clown.png" alt="Koopa Clown">
+              <span>Koopa Clown</span>
+          </button>
+        </div>
+        <div class="row">
+          <button class="kart-option" data-value="Landship">
+              <img src="../static/assets/vehicles/landship.png" alt="Landship">
+              <span>Landship</span>
+          </button>
+          <button class="kart-option" data-value="Mach 8">
+              <img src="../static/assets/vehicles/mach-8.png" alt="Mach 8">
+              <span>Mach 8</span>
+          </button>
+          <button class="kart-option" data-value="Master Cycle">
+              <img src="../static/assets/vehicles/master-cycle.png" alt="Master Cycle">
+              <span>Master Cycle</span>
+          </button>
+          <button class="kart-option" data-value="Mr Scooty">
+              <img src="../static/assets/vehicles/mr-scooty.png" alt="Mr Scooty">
+              <span>Mr Scooty</span>
+          </button>
+          <button class="kart-option" data-value="P Wing">
+              <img src="../static/assets/vehicles/p-wing.png" alt="P Wing">
+              <span>P Wing</span>
+          </button>
+          <button class="kart-option" data-value="Pipe Frame">
+              <img src="../static/assets/vehicles/pipe-frame.png" alt="Pipe Frame">
+              <span>Pipe Frame</span>
+          </button>
+          <button class="kart-option" data-value="Prancer">
+              <img src="../static/assets/vehicles/prancer.png" alt="Prancer">
+              <span>Prancer</span>
+          </button>
+          <button class="kart-option" data-value="Sneeker">
+              <img src="../static/assets/vehicles/sneeker.png" alt="Sneeker">
+              <span>Sneeker</span>
+          </button>
+        </div>
+        <div class="row">
+          <button class="kart-option" data-value="Splat Buggy">
+              <img src="../static/assets/vehicles/splat-buggy.png" alt="Splat Buggy">
+              <span>Splat Buggy</span>
+          </button>
+          <button class="kart-option" data-value="Sport Bike">
+              <img src="../static/assets/vehicles/sport-bike.png" alt="Sport Bike">
+              <span>Sport Bike</span>
+          </button>
+          <button class="kart-option" data-value="Sports Coupe">
+              <img src="../static/assets/vehicles/sports-coupe.png" alt="Sports Coupe">
+              <span>Sports Coupe</span>
+          </button>
+          <button class="kart-option" data-value="Standard ATV">
+              <img src="../static/assets/vehicles/standard-atv.png" alt="Standard ATV">
+              <span>Standard ATV</span>
+          </button>
+          <button class="kart-option" data-value="Standard Bike">
+              <img src="../static/assets/vehicles/standard-bike.png" alt="Standard Bike">
+              <span>Standard Bike</span>
+          </button>
+          <button class="kart-option" data-value="Standard Kart">
+              <img src="../static/assets/vehicles/standard-kart.png" alt="Standard Kart">
+              <span>Standard Kart</span>
+          </button>
+          <button class="kart-option" data-value="Steel Driver">
+              <img src="../static/assets/vehicles/steel-driver.png" alt="Steel Driver">
+              <span>Steel Driver</span>
+          </button>
+          <button class="kart-option" data-value="Streetle">
+              <img src="../static/assets/vehicles/streetle.png" alt="Streetle">
+              <span>Streetle</span>
+          </button>
+        </div>
+        <div class="row">
+          <button class="kart-option" data-value="Tanooki Kart">
+              <img src="../static/assets/vehicles/tanooki-kart.png" alt="Tanooki Kart">
+              <span>Tanooki Kart</span>
+          </button>
+          <button class="kart-option" data-value="Teddy Buggy">
+              <img src="../static/assets/vehicles/teddy-buggy.png" alt="Teddy Buggy">
+              <span>Teddy Buggy</span>
+          </button>
+          <button class="kart-option" data-value="The Duke">
+              <img src="../static/assets/vehicles/the-duke.png" alt="The Duke">
+              <span>The Duke</span>
+          </button>
+          <button class="kart-option" data-value="Tri Speeder">
+              <img src="../static/assets/vehicles/tri-speeder.png" alt="Tri Speeder">
+              <span>Tri Speeder</span>
+          </button>
+          <button class="kart-option" data-value="Varmint">
+              <img src="../static/assets/vehicles/varmint.png" alt="Varmint">
+              <span>Varmint</span>
+          </button>
+          <button class="kart-option" data-value="Mr Scooty">
+              <img src="../static/assets/vehicles/mr-scooty.png" alt="Mr Scooty">
+              <span>Mr Scooty</span>
+          </button>
+          <button class="kart-option" data-value="City Tripper">
+              <img src="../static/assets/vehicles/city-tripper.png" alt="City Tripper">
+              <span>City Tripper</span>
+          </button>
+          <button class="kart-option" data-value="Master Cycle">
+            <img src="../static/assets/vehicles/master-cycle.png" alt="Master Cycle">
+            <span>Master Cycle</span>
+          </button>
+        </div>
+      </div>
+      <menu class="dialog-menu-footer" style="text-align:center;margin-top:1rem;">
+        <button class="nes-btn">Close</button>
+      </menu>
+    </form>
+  </dialog>
+
+  <dialog class="nes-dialog is-dark" id="map-dialog">
+    <form method="dialog" class="dialog-form">
+      <p class="title">Select Map</p>
+  
+      <div class="dialog-menu">
+  
+        <!-- Mushroom Cup -->
+        <div class="cup-section">
+          <h3 class="cup-row">Mushroom Cup</h3>
+          <div class="map-row">
+            <button class="map-option" data-value="Mario Kart Stadium">
+              <img src="../static/assets/maps/mario-kart-stadium.png" alt="Mario Kart Stadium">
+              <span>Mario Kart Stadium</span>
+            </button>
+            <button class="map-option" data-value="Water Park">
+              <img src="../static/assets/maps/water-park.png" alt="Water Park">
+              <span>Water Park</span>
+            </button>
+            <button class="map-option" data-value="Sweet Sweet Canyon">
+              <img src="../static/assets/maps/sweet-sweet-canyon.png" alt="Sweet Sweet Canyon">
+              <span>Sweet Sweet Canyon</span>
+            </button>
+            <button class="map-option" data-value="Thwomp Ruins">
+              <img src="../static/assets/maps/thwomp-ruins.png" alt="Thwomp Ruins">
+              <span>Thwomp Ruins</span>
+            </button>
+          </div>
+        </div>
+  
+        <!-- Flower Cup -->
+        <div class="cup-section">
+          <h3 class="cup-row">Flower Cup</h3>
+          <div class="map-row">
+            <button class="map-option" data-value="Mario Circuit">
+              <img src="../static/assets/maps/mario-circuit.png" alt="Mario Circuit">
+              <span>Mario Circuit</span>
+            </button>
+            <button class="map-option" data-value="Toad Harbor">
+              <img src="../static/assets/maps/toad-harbor.png" alt="Toad Harbor">
+              <span>Toad Harbor</span>
+            </button>
+            <button class="map-option" data-value="Twisted Mansion">
+              <img src="../static/assets/maps/twisted-mansion.png" alt="Twisted Mansion">
+              <span>Twisted Mansion</span>
+            </button>
+            <button class="map-option" data-value="Shy Guy Falls">
+              <img src="../static/assets/maps/shy-guy-falls.png" alt="Shy Guy Falls">
+              <span>Shy Guy Falls</span>
+            </button>
+          </div>
+        </div>
+  
+        <!-- Star Cup -->
+        <div class="cup-section">
+          <h3 class="cup-row">Star Cup</h3>
+          <div class="map-row">
+            <button class="map-option" data-value="Sunshine Airport">
+              <img src="../static/assets/maps/sunshine-airport.png" alt="Sunshine Airport">
+              <span>Sunshine Airport</span>
+            </button>
+            <button class="map-option" data-value="Dolphin Shoals">
+              <img src="../static/assets/maps/dolphin-shoals.png" alt="Dolphin Shoals">
+              <span>Dolphin Shoals</span>
+            </button>
+            <button class="map-option" data-value="Electrodrome">
+              <img src="../static/assets/maps/electrodrome.png" alt="Electrodrome">
+              <span>Electrodrome</span>
+            </button>
+            <button class="map-option" data-value="Mount Wario">
+              <img src="../static/assets/maps/mount-wario.png" alt="Mount Wario">
+              <span>Mount Wario</span>
+            </button>
+          </div>
+        </div>
+  
+        <!-- Special Cup -->
+        <div class="cup-section">
+          <h3 class="cup-row">Special Cup</h3>
+          <div class="map-row">
+            <button class="map-option" data-value="Cloudtop Cruise">
+              <img src="../static/assets/maps/cloudtop-cruise.png" alt="Cloudtop Cruise">
+              <span>Cloudtop Cruise</span>
+            </button>
+            <button class="map-option" data-value="Bone-Dry Dunes">
+              <img src="../static/assets/maps/bone-dry-dunes.png" alt="Bone-Dry Dunes">
+              <span>Bone-Dry Dunes</span>
+            </button>
+            <button class="map-option" data-value="Bowser’s Castle">
+              <img src="../static/assets/maps/bowsers-castle.png" alt="Bowser’s Castle">
+              <span>Bowser’s Castle</span>
+            </button>
+            <button class="map-option" data-value="Rainbow Road (MK8)">
+              <img src="../static/assets/maps/rainbow-road.png" alt="Rainbow Road (MK8)">
+              <span>Rainbow Road (MK8)</span>
+            </button>
+          </div>
+        </div>
+  
+        <!-- Shell Cup -->
+        <div class="cup-section">
+          <h3 class="cup-row">Shell Cup</h3>
+          <div class="map-row">
+            <button class="map-option" data-value="Moo Moo Meadows">
+              <img src="../static/assets/maps/moo-moo-meadows.png" alt="Moo Moo Meadows">
+              <span>Moo Moo Meadows</span>
+            </button>
+            <button class="map-option" data-value="Mario Circuit (GBA)">
+              <img src="../static/assets/maps/gba-mario-circuit.png" alt="Mario Circuit (GBA)">
+              <span>Mario Circuit (GBA)</span>
+            </button>
+            <button class="map-option" data-value="Cheep Cheep Beach">
+              <img src="../static/assets/maps/cheep-cheep-beach.png" alt="Cheep Cheep Beach">
+              <span>Cheep Cheep Beach</span>
+            </button>
+            <button class="map-option" data-value="Toad’s Turnpike">
+              <img src="../static/assets/maps/toads-turnpike.png" alt="Toad’s Turnpike">
+              <span>Toad’s Turnpike</span>
+            </button>
+          </div>
+        </div>
+  
+        <!-- Banana Cup -->
+        <div class="cup-section">
+          <h3 class="cup-row">Banana Cup</h3>
+          <div class="map-row">
+            <button class="map-option" data-value="Dry Dry Desert">
+              <img src="../static/assets/maps/dry-dry-desert.png" alt="Dry Dry Desert">
+              <span>Dry Dry Desert</span>
+            </button>
+            <button class="map-option" data-value="Donut Plains 3">
+              <img src="../static/assets/maps/donut-plains-3.png" alt="Donut Plains 3">
+              <span>Donut Plains 3</span>
+            </button>
+            <button class="map-option" data-value="Royal Raceway">
+              <img src="../static/assets/maps/royal-raceway.png" alt="Royal Raceway">
+              <span>Royal Raceway</span>
+            </button>
+            <button class="map-option" data-value="DK Jungle">
+              <img src="../static/assets/maps/dk-jungle.png" alt="DK Jungle">
+              <span>DK Jungle</span>
+            </button>
+          </div>
+        </div>
+  
+        <!-- Leaf Cup -->
+        <div class="cup-section">
+          <h3 class="cup-row">Leaf Cup</h3>
+          <div class="map-row">
+            <button class="map-option" data-value="Wario Stadium">
+              <img src="../static/assets/maps/wario-stadium.png" alt="Wario Stadium">
+              <span>Wario Stadium</span>
+            </button>
+            <button class="map-option" data-value="Sherbet Land">
+              <img src="../static/assets/maps/sherbet-land.png" alt="Sherbet Land">
+              <span>Sherbet Land</span>
+            </button>
+            <button class="map-option" data-value="Music Park">
+              <img src="../static/assets/maps/music-park.png" alt="Music Park">
+              <span>Music Park</span>
+            </button>
+            <button class="map-option" data-value="Yoshi Valley">
+              <img src="../static/assets/maps/yoshi-valley.png" alt="Yoshi Valley">
+              <span>Yoshi Valley</span>
+            </button>
+          </div>
+        </div>
+  
+        <!-- Lightning Cup -->
+        <div class="cup-section">
+          <h3 class="cup-row">Lightning Cup</h3>
+          <div class="map-row">
+            <button class="map-option" data-value="Tick-Tock Clock">
+              <img src="../static/assets/maps/tick-tick-clock.png" alt="Tick-Tock Clock">
+              <span>Tick-Tock Clock</span>
+            </button>
+            <button class="map-option" data-value="Piranha Plant Slide">
+              <img src="../static/assets/maps/piranha-plant-slide.png" alt="Piranha Plant Slide">
+              <span>Piranha Plant Slide</span>
+            </button>
+            <button class="map-option" data-value="Grumble Volcano">
+              <img src="../static/assets/maps/grumble-volcano.png" alt="Grumble Volcano">
+              <span>Grumble Volcano</span>
+            </button>
+            <button class="map-option" data-value="Rainbow Road (N64)">
+              <img src="../static/assets/maps/n64-rainbow-road.png" alt="Rainbow Road (N64)">
+              <span>Rainbow Road (N64)</span>
+            </button>
+          </div>
+        </div>
+
+        <!-- Egg Cup -->
+        <div class="cup-section">
+          <h3 class="cup-row">Egg Cup</h3>
+          <div class="map-row">
+            <button class="map-option" data-value="Yoshi Circuit">
+              <img src="../static/assets/maps/yoshi-circuit.png" alt="Yoshi Circuit">
+              <span>Yoshi Circuit</span>
+            </button>
+            <button class="map-option" data-value="Excitebike Arena">
+              <img src="../static/assets/maps/excitebike-arena.png" alt="Excitebike Arena">
+              <span>Excitebike Arena</span>
+            </button>
+            <button class="map-option" data-value="Dragon Driftway">
+              <img src="../static/assets/maps/dragon-driftway.png" alt="Dragon Driftway">
+              <span>Dragon Driftway</span>
+            </button>
+            <button class="map-option" data-value="Mute City">
+              <img src="../static/assets/maps/mute-city.png" alt="Mute City">
+              <span>Mute City</span>
+            </button>
+          </div>
+        </div>
+
+        <!-- Triforce Cup -->
+        <div class="cup-section">
+          <h3 class="cup-row">Triforce Cup</h3>
+          <div class="map-row">
+            <button class="map-option" data-value="Wario's Gold Mine">
+              <img src="../static/assets/maps/warios-gold-mine.png" alt="Wario's Gold Mine">
+              <span>Wario's Gold Mine</span>
+            </button>
+            <button class="map-option" data-value="Rainbow Road (SNES)">
+              <img src="../static/assets/maps/snes-rainbow-road.png" alt="Rainbow Road (SNES)">
+              <span>Rainbow Road (SNES)</span>
+            </button>
+            <button class="map-option" data-value="Ice Ice Outpost">
+              <img src="../static/assets/maps/ice-ice-outpost.png" alt="Ice Ice Outpost">
+              <span>Ice Ice Outpost</span>
+            </button>
+            <button class="map-option" data-value="Hyrule Circuit">
+              <img src="../static/assets/maps/hyrule-circuit.png" alt="Hyrule Circuit">
+              <span>Hyrule Circuit</span>
+            </button>
+          </div>
+        </div>
+
+        <!-- Crossing Cup -->
+        <div class="cup-section">
+          <h3 class="cup-row">Crossing Cup</h3>
+          <div class="map-row">
+            <button class="map-option" data-value="Baby Park">
+              <img src="../static/assets/maps/baby-park.png" alt="Baby Park">
+              <span>Baby Park</span>
+            </button>
+            <button class="map-option" data-value="Cheese Land">
+              <img src="../static/assets/maps/cheese-land.png" alt="Cheese Land">
+              <span>Cheese Land</span>
+            </button>
+            <button class="map-option" data-value="Wild Woods">
+              <img src="../static/assets/maps/wild-woods.png" alt="Wild Woods">
+              <span>Wild Woods</span>
+            </button>
+            <button class="map-option" data-value="Animal Crossing">
+              <img src="../static/assets/maps/animal-crossing.png" alt="Animal Crossing">
+              <span>Animal Crossing</span>
+            </button>
+          </div>
+        </div>
+
+        <!-- Bell Cup -->
+        <div class="cup-section">
+          <h3 class="cup-row">Bell Cup</h3>
+          <div class="map-row">
+            <button class="map-option" data-value="Neo Bowser City">
+              <img src="../static/assets/maps/neo-bowser-city.png" alt="Neo Bowser City">
+              <span>Neo Bowser City</span>
+            </button>
+            <button class="map-option" data-value="Ribbon Road">
+              <img src="../static/assets/maps/ribbon-road.png" alt="Ribbon Road">
+              <span>Ribbon Road</span>
+            </button>
+            <button class="map-option" data-value="Super Bell Subway">
+              <img src="../static/assets/maps/super-bell-subway.png" alt="Super Bell Subway">
+              <span>Super Bell Subway</span>
+            </button>
+            <button class="map-option" data-value="Big Blue">
+              <img src="../static/assets/maps/big-blue.png" alt="Big Blue">
+              <span>Big Blue</span>
+            </button>
+          </div>
+        </div>
+  
+      </div>
+  
+      <menu class="dialog-menu-footer" style="text-align:center;margin-top:1rem;">
+        <button class="nes-btn">Close</button>
+      </menu>
+  
+    </form>
+  </dialog>
+  <audio id="mario-audio"></audio>
+</body>
+    
 
   <script>
     // Open the correct dialog when a box is clicked
@@ -208,9 +918,9 @@
       smoothedVolume = 0.7 * smoothedVolume + 0.3 * avg;
 
       if (smoothedVolume > 70) {
-          sprite.src = "/static/assets/mario-talking.png"; // mouth open
+          sprite.src = "/static/../static/assets/mario-talking.png"; // mouth open
       } else {
-          sprite.src = "/static/assets/mario-shut.png";   // mouth closed
+          sprite.src = "/static/../static/assets/mario-shut.png";   // mouth closed
       }
 
       requestAnimationFrame(animate);
@@ -220,5 +930,21 @@
 
     requestAnimationFrame(animate);
 });
+
+// Add event listener to the predict button
+document.getElementById('predict-btn').addEventListener('click', () => {
+      // Collect the currently selected variables
+      const selectedDriver = document.querySelector('[data-menu="driver"]').textContent.split(': ')[1].trim();
+      const selectedKart = document.querySelector('[data-menu="kart"]').textContent.split(': ')[1].trim();
+      const selectedGlider = document.querySelector('[data-menu="glider"]').textContent.split(': ')[1].trim();
+      const selectedTire = document.querySelector('[data-menu="tyre"]').textContent.split(': ')[1].trim();
+      const selectedMap = document.querySelector('[data-menu="map"]').textContent.split(': ')[1].trim();
+
+      // Create an array of the selected variables
+      const selectedVariables = [selectedDriver, selectedKart, selectedGlider, selectedTire, selectedMap];
+
+      // Log the array to the console (or send it to a server if needed)
+      console.log(selectedVariables);
+    });
   </script>
 </html>
