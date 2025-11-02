@@ -4,12 +4,11 @@ import numpy as np
 import pandas as pd
 import itertools
 import random
-import matplotlib.pyplot as plt
 import kagglehub
 from kagglehub import KaggleDatasetAdapter
-from sklearn.model_selection import train_test_split, KFold, cross_val_score
+from sklearn.model_selection import train_test_split
 from sklearn.ensemble import GradientBoostingRegressor
-from sklearn.metrics import r2_score, mean_absolute_error, make_scorer
+from sklearn.metrics import r2_score, mean_absolute_error
 
 
 TOP_N_BODIES = None
@@ -54,7 +53,6 @@ def canonicalize_track_columns(df: pd.DataFrame) -> pd.DataFrame:
     required = ["Map","WR","Ground","Water","Anti-Gravity","Air","Turns","Total"]
 
     for req in required:
-        req_key = norm_token(req)
         sources = []
         for k, cols in buckets.items():
             canon = CANON.get(k, k)  
@@ -367,6 +365,21 @@ calibration["scale"] = calibration["scale"].replace([np.inf,-np.inf], np.nan).fi
 sim_preds = sim_preds.merge(calibration[["Map","scale"]], on="Map", how="left")
 sim_preds["predicted_time_calibrated"] = sim_preds["predicted_time"] * sim_preds["scale"]
 
+if 'wr_model' != None:
+    feats_row = track_df.loc[track_df["Map"] == TARGET_MAP, FEATURES]
+    if not feats_row.empty:
+        ml_wr = float(wr_model.predict(feats_row.iloc[[0]])[0])  
+        alpha = 0.15  
+        m = (sim_preds["Map"] == TARGET_MAP)
+
+        sim_preds.loc[m, "predicted_time_calibrated"] = (
+            (1.0 - alpha) * sim_preds.loc[m, "predicted_time_calibrated"] + alpha * ml_wr
+        )
+
+        wr_val = float(track_df.loc[track_df["Map"] == TARGET_MAP, "WR"].iloc[0])
+        sim_preds.loc[m, "predicted_time_calibrated"] = np.maximum(
+            sim_preds.loc[m, "predicted_time_calibrated"], 0.98 * wr_val
+        )
 
 rr_preds = sim_preds.loc[sim_preds["Map"] == TARGET_MAP].copy()
 if rr_preds.empty:
@@ -383,9 +396,9 @@ def mario_speech(rr_winner):
     return f"{random.choice(phrases)},  {rr_winner['Driver']} has a predicted time of {rr_winner['predicted_time']} {random.choice(phrases)}"
 
 
-#print(f"\n=== {TARGET_MAP} — Winner ===")
-#print(f"Driver: {rr_winner['Driver']}")
-#print(f"Body:   {rr_winner['Body']}")
-#print(f"Tire:   {rr_winner['Tire']}")
-#print(f"Glider: {rr_winner['Glider']}")
-#print(f"Pred (s): {rr_winner['predicted_time']:.2f}")
+print(f"\n=== {TARGET_MAP} — Winner ===")
+print(f"Driver: {rr_winner['Driver']}")
+print(f"Body:   {rr_winner['Body']}")
+print(f"Tire:   {rr_winner['Tire']}")
+print(f"Glider: {rr_winner['Glider']}")
+print(f"Pred (s): {rr_winner['predicted_time']:.2f}")
