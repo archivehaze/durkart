@@ -3,6 +3,7 @@ from config import get_api_keys
 from elevenlabs import ElevenLabs, stream
 from voice.mouth_logic import generate_mouth_states
 from voice.eleven_tts import generate_tts
+from Hack import mario_speech
 
 
 from voice.eleven_tts import elevenlabs, VOICE_ID, MODEL_ID
@@ -20,10 +21,10 @@ MODEL_ID = "eleven_v3"
 client = ElevenLabs(api_key=API_KEY)
 
 # Route to return TTS audio for hardcoded text
-@app.route('/speak')
-def speak():
-    # Hardcoded text for now
-    text = "Its-a me, Mario! This is a test! I love eating ice cream and ring around the rosies, princess peach is predicted to win Woohoo!"
+@app.route('/speak', methods=['GET', 'POST'])
+def speak():   
+    variables = request.json.get('variables', [])
+    text = mario_speech(variables)
     audio_stream = elevenlabs.text_to_speech.stream(
         text=text,
         voice_id=VOICE_ID,
