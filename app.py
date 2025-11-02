@@ -20,10 +20,11 @@ MODEL_ID = "eleven_v3"
 client = ElevenLabs(api_key=API_KEY)
 
 # Route to return TTS audio for hardcoded text
-@app.route('/speak')
+@app.route('/speak', methods=['GET', 'POST'])
 def speak():
-    # Hardcoded text for now
-    text = "Its-a me, Mario! This is a test! I love eating ice cream and ring around the rosies, princess peach is predicted to win Woohoo!"
+    # Hardcoded text for now    
+    variables = request.json.get('variables', [])
+    text = " ".join(variables) if variables else "Hello, this is a default text."
     audio_stream = elevenlabs.text_to_speech.stream(
         text=text,
         voice_id=VOICE_ID,
